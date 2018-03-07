@@ -14,65 +14,46 @@ public class SimpleArray
         }
 
         return ret;
-    };
+    }
 
 
     public static double minElement(double[] feld)
     {
         double ret = feld[0];
 
-        for(int i = 1; i < feld.length; i++)
+        for(double val : feld)
         {
-            if(feld[i] < ret)
-            {
-                ret = feld[i];
-            }
+            if(ret > val) {ret = val;}
         }
 
         return ret;
-    };
+    }
 
     public static double maxElement(double[] feld)
     {
         double ret = feld[0];
 
-        for(int i = 1; i < feld.length; i++)
+        for(double val : feld)
         {
-            if(feld[i] > ret)
-            {
-                ret = feld[i];
-            }
+            if(ret < val){ret = val;}
         }
 
         return  ret;
-    };
+    }
 
     public static void druckeFeld(double[] feld)
     {
         if(feld != null) {
-            for (int i = 0; i < feld.length; i++) {
-                System.out.println(feld[i]);
-            }
+            for (double val : feld) {System.out.println(val);}
         }
-    };
+    }
 
     public static double berechneDurchschnitt(double[] feld)
     {
         double sum = 0;
-
-        for(int i = 0; i < feld.length; i++)
-        {
-            sum += feld[i];
-        }
-
-        if(feld.length != 0)
-        {
-            return sum / feld.length;
-        }
-        else
-        {
-            return 0;
-        }
+        if(feld.length == 0){return 0;}
+        for (double val : feld) {sum += val;}
+        return sum / feld.length;
     }
 
     public static double bestimmeKleinstenAbstand(double[] feld)
@@ -81,34 +62,20 @@ public class SimpleArray
 
         for(int i = 1; i < feld.length; i++)
         {
-            double diff = 0;
-
-            if(feld[i] > feld[i-1])
-            {
-                diff = feld[i] - feld[i-1];
-            }else{
-                diff = feld[i-1] - feld[i];
-            }
-
-            if(i == 1){ret=diff;};
-
-            if(diff < ret)
-            {
-                ret = diff;
-            }
+            double diff = Math.abs(feld[i] - feld[i-1]);
+            if (diff < ret || i == 1) {ret = diff;}
         }
         return ret;
     }
 
     public static int berechneQuersumme(char[] zahl)
     {
-                int ret = 0;
+        int ret = 0;
 
-        for (int i = 0; i < zahl.length; i++)
+        for (char val : zahl)
         {
-            ret += ((int) zahl[i]) - 48;
+            ret += Character.getNumericValue(val);
         }
-
         return ret;
     }
 
@@ -118,20 +85,17 @@ public class SimpleArray
         boolean isSorted;
 
         do {
-
             isSorted = true;
 
             for (int i = 1; i < feld.length; i++) {
                 if (feld[i] < feld[i - 1])
                 {
                     isSorted = false;
-
                     buffer = feld[i];
                     feld[i] = feld[i-1];
                     feld[i-1] = buffer;
                 }
             }
-        }
-        while(!isSorted);
+        } while(!isSorted);
     }
 }
